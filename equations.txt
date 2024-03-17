@@ -1,0 +1,50 @@
+########### Sampling Mean #############
+
+A<-rnorm(1000,0,1)
+B<-sample(A,20,replace=TRUE)
+mean(B);var(B);sd(B)
+choose(1000,20)
+mx<-rep(0,30000)
+for (i in 1:30000){
+mx[i]<-mean(sample(A,20,replace=TRUE))
+}
+mx
+mean(mx)
+hist(mx)
+qqnorm(mx) ## To show that it is normal distribution for sampling distribution
+qqline(mx) ## To show that it is normal distribution for sampling distribution
+boxplot(mx) ## To show that it is normal distribution for sampling distribution
+Bias<-mean(mx)-mean(A) ##If mean(mx)-mean(A)=0 , then mean is unbisaed estimator
+IQ<-c(15,20,26,95,8,80,45,36,29,79,82,49,72,71)
+B<-sample(IQ,5,replace=TRUE)
+mean(B);var(B);sd(B)
+choose(15,5)
+mx<-rep(0,3003)
+for (i in 1:3003){
+mx[i]<-mean(sample(IQ,5,replace=TRUE))
+}
+mx
+mean(mx)
+Bias<-mean(mx)-mean(IQ)
+
+
+#################### Sampling of Mean and Median,which is better ##########
+
+mu<-1
+veriance<-sqrt(7)
+x_mean<-rep(0,10^5)
+x_median<-rep(0,10^5)
+for (i in 1:10^5)
+{
+x<-rnorm(100,mu,veriance)
+x_mean[i]<-mean(x)
+x_median[i]<-median(x)
+}
+Estimator_mean<-mean(x_mean)
+Bias_mean<-mean(x_mean)-mu
+Estimator_median<-mean(x_median)
+Bias_median<-mean(x_median)-mu
+var(x_mean)
+var(x_median)
+MSE_x_mean<-var(x_mean)+(mean(x_mean)-mu)^2
+MSE_x_median<-var(x_median)+(mean(x_median)-mu)^2
